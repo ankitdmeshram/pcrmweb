@@ -6,8 +6,8 @@ import { domainName, validateEmail } from "~/utils/common";
 
 const register = () => {
   const [userData, setUserData] = useState({
-    fname: "",
-    lname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     password: "",
@@ -27,7 +27,7 @@ const register = () => {
   const handleSubmit = (e: any) => {
     try {
       e.preventDefault();
-      if (!userData.fname || !userData.lname || !userData.email || !userData.phone || !userData.password || !userData.confirmPassword) {
+      if (!userData.firstName || !userData.lastName || !userData.email || !userData.phone || !userData.password || !userData.confirmPassword) {
         setShowModal(prev => {
           return {
             ...prev,
@@ -139,13 +139,13 @@ const register = () => {
                 <div className="col-sm-6">
                   <div className="mb-3">
                     <label htmlFor="Name">First Name</label>
-                    <input type="text" className="form-control" name="fname" onChange={handleChange} value={userData.fname} />
+                    <input type="text" className="form-control" name="firstName" onChange={handleChange} value={userData.firstName} />
                   </div>
                 </div>
                 <div className="col-sm-6">
                   <div className="mb-3">
-                    <label htmlFor="lname">Last Name</label>
-                    <input type="text" className="form-control" name="lname" onChange={handleChange} value={userData.lname} />
+                    <label htmlFor="lastName">Last Name</label>
+                    <input type="text" className="form-control" name="lastName" onChange={handleChange} value={userData.lastName} />
                   </div>
                 </div>
                 <div className="col-sm-6">

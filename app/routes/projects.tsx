@@ -55,10 +55,11 @@ const projects = () => {
                     return data?.projects.map((project: any) => {
                         return {
                             ...project,
-                            startDate: project.startDate ? moment(project.startDate).format("DD-MM-YYYY HH:mm") : null,
-                            endDate: project.endDate ? moment(project.endDate).format("DD-MM-YYYY HH:mm") : null,
-                            updatedAt: project.updatedAt ? moment(project.updatedAt).format("DD-MM-YYYY HH:mm") : null,
-                            createdAt: project.createdAt ? moment(project.createdAt).format("DD-MM-YYYY HH:mm") : null,
+                            startDate: project.startDate ? moment(project.startDate).format("DD-MM-YYYY") : null,
+                            endDate: project.endDate ? moment(project.endDate).format("DD-MM-YYYY") : null,
+                            dueDate: project.dueDate ? moment(project.dueDate).format("DD-MM-YYYY") : null,
+                            updatedAt: project.updatedAt ? moment(project.updatedAt).format("DD-MM-YYYY") : null,
+                            createdAt: project.createdAt ? moment(project.createdAt).format("DD-MM-YYYY") : null,
                         }
                     })
                 })
@@ -130,8 +131,9 @@ const projects = () => {
                                     <div className="table-col table-index">Sr. No.</div>
                                     <div className="table-col table-title">Project Name</div>
                                     <div className="col table-col table-date">Status</div>
-                                    <div className="col table-col table-date">Tags</div>
+                                    {/* <div className="col table-col table-date">Tags</div> */}
                                     <div className="col table-col table-date">Start Date</div>
+                                    <div className="col table-col table-date">Due Date</div>
                                     <div className="col table-col table-date">End Date</div>
                                     <div className="col table-col table-date">Updated At</div>
                                     <div className="col table-col table-date">Created At</div>
@@ -144,8 +146,9 @@ const projects = () => {
                                             <div className="table-col table-index">{i + 1}</div>
                                             <div className="table-col table-title">{project.projectName}</div>
                                             <div className="col table-col table-date">{project.status}</div>
-                                            <div className="col table-col table-date">{project.tags}</div>
+                                            {/* <div className="col table-col table-date">{project.tags}</div> */}
                                             <div className="col table-col table-date">{project.startDate}</div>
+                                            <div className="col table-col table-date">{project.dueDate}</div>
                                             <div className="col table-col table-date">{project.endDate}</div>
                                             <div className="col table-col table-date">{project.updatedAt}</div>
                                             <div className="col table-col table-date">{project.createdAt}</div>
