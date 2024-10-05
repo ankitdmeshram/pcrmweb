@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, useParams } from "@remix-run/react";
 
 import "~/styles/styles.css";
 import "~/styles/dashboard.css";
@@ -14,29 +14,31 @@ import { domainName, getCookie } from '~/utils/common';
 import moment from 'moment';
 import Modal from '~/components/modal';
 
-const projects = () => {
+const Tasks = () => {
+    const { id } = useParams();
+
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const [projectData, setProjectData] = useState<any>([])
+    const [tasksData, setTasksData] = useState<any>([])
     const [isLoading, setIsLoading] = useState(true)
     const [modal, setModal] = useState({ show: false, message: "" })
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetchProject()
+        fetchTasks(id)
     }, [])
 
-    const fetchProject = async () => {
+    const fetchTasks = async (_id: any) => {
         try {
             setIsLoading(true)
             const token = await getCookie("ud").then(res => res)
-            const data: any = await fetch(`${domainName()}/api/project/all-project`, {
+            const data: any = await fetch(`${domainName()}/api/task/all-tasks`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "x-auth-token": `${token}`,
                 },
-                body: JSON.stringify({}),
+                body: JSON.stringify({ projectId: _id }),
             })
                 .then((res: any) => {
                     if (res.status === 401) {
@@ -51,15 +53,15 @@ const projects = () => {
                 })
 
             if (data?.success) {
-                setProjectData(() => {
-                    return data?.projects.map((project: any) => {
+                setTasksData(() => {
+                    return data?.tasks.map((task: any) => {
                         return {
-                            ...project,
-                            startDate: project.startDate ? moment(project.startDate).format("DD-MM-YYYY") : null,
-                            endDate: project.endDate ? moment(project.endDate).format("DD-MM-YYYY") : null,
-                            dueDate: project.dueDate ? moment(project.dueDate).format("DD-MM-YYYY") : null,
-                            updatedAt: project.updatedAt ? moment(project.updatedAt).format("DD-MM-YYYY") : null,
-                            createdAt: project.createdAt ? moment(project.createdAt).format("DD-MM-YYYY") : null,
+                            ...task,
+                            startDate: task.startDate ? moment(task.startDate).format("DD-MM-YYYY") : null,
+                            endDate: task.endDate ? moment(task.endDate).format("DD-MM-YYYY") : null,
+                            dueDate: task.dueDate ? moment(task.dueDate).format("DD-MM-YYYY") : null,
+                            updatedAt: task.updatedAt ? moment(task.updatedAt).format("DD-MM-YYYY") : null,
+                            createdAt: task.createdAt ? moment(task.createdAt).format("DD-MM-YYYY") : null,
                         }
                     })
                 })
@@ -71,14 +73,14 @@ const projects = () => {
         }
     }
 
-    const deleteProject = async (id: any) => {
+    const deleteTask = async (id: any) => {
         try {
-            const confirm = window.confirm("Are you sure you want to delete this project?")
+            const confirm = window.confirm("Are you sure you want to delete this task?")
             if (!confirm) return
             setIsLoading(true)
 
             const token = await getCookie("ud").then(res => res)
-            const data: any = await fetch(`${domainName()}/api/project/delete-project`, {
+            const data: any = await fetch(`${domainName()}/api/task/delete-task`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -93,10 +95,10 @@ const projects = () => {
                         navigate("/?redirect=" + url.pathname)
                         return
                     }
-                    setModal({ show: true, message: "Project deleted successfully" })
+                    setModal({ show: true, message: "Task deleted successfully" })
 
-                    setProjectData((prev: any) => {
-                        return prev.filter((project: any) => project._id !== id)
+                    setTasksData((prev: any) => {
+                        return prev.filter((task: any) => task._id !== id)
                     })
 
                     setIsLoading(false)
@@ -123,13 +125,13 @@ const projects = () => {
                     <div className="main-body">
                         <div className="box shadow-sm">
 
-                            <button className='btn btn-black mb-2' onClick={() => navigate("/add-project")}>New Project</button>
+                            <button className='btn btn-black mb-2' onClick={() => navigate("/add-task")}>New Task</button>
 
                             <div className=" table-main">
 
                                 <div className="table-row thead">
                                     <div className="table-col table-index">Sr. No.</div>
-                                    <div className="table-col table-title">Project Name</div>
+                                    <div className="table-col table-title">Task</div>
                                     <div className="col table-col table-date">Status</div>
                                     {/* <div className="col table-col table-date">Tags</div> */}
                                     <div className="col table-col table-date">Start Date</div>
@@ -141,19 +143,19 @@ const projects = () => {
                                 </div>
 
                                 {
-                                    projectData && projectData.length > 0 && projectData.map((project: any, i: number) => {
+                                    tasksData && tasksData.length > 0 && tasksData.map((task: any, i: number) => {
                                         return <div className="table-row">
                                             <div className="table-col table-index">{i + 1}</div>
-                                            <div className="table-col table-title" onClick={() => navigate(`/tasks/${project?._id}`)}>{project.projectName}</div>
-                                            <div className="col table-col table-date">{project.status}</div>
-                                            {/* <div className="col table-col table-date">{project.tags}</div> */}
-                                            <div className="col table-col table-date">{project.startDate}</div>
-                                            <div className="col table-col table-date">{project.dueDate}</div>
-                                            <div className="col table-col table-date">{project.endDate}</div>
-                                            <div className="col table-col table-date">{project.updatedAt}</div>
-                                            <div className="col table-col table-date">{project.createdAt}</div>
+                                            <div className="table-col table-title">{task.taskName}</div>
+                                            <div className="col table-col table-date">{task.status}</div>
+                                            {/* <div className="col table-col table-date">{task.tags}</div> */}
+                                            <div className="col table-col table-date">{task.startDate}</div>
+                                            <div className="col table-col table-date">{task.dueDate}</div>
+                                            <div className="col table-col table-date">{task.endDate}</div>
+                                            <div className="col table-col table-date">{task.updatedAt}</div>
+                                            <div className="col table-col table-date">{task.createdAt}</div>
                                             <div className="col table-action">
-                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/update-project/${project?._id}`) }>Update</button><button className="col btn btn-danger" onClick={() => deleteProject(project._id)}>Delete</button>
+                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/update-task/${task?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteTask(task._id)}>Delete</button>
                                             </div>
                                         </div>
                                     })
@@ -167,4 +169,4 @@ const projects = () => {
     )
 }
 
-export default projects;
+export default Tasks;

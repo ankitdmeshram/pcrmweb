@@ -30,7 +30,6 @@ const updateProject = () => {
 
     useEffect(() => {
         viewProject(id)
-
     }, [])
 
     const viewProject = async (_id: any) => {
