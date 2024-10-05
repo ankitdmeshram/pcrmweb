@@ -144,7 +144,7 @@ const projects = () => {
                                     projectData && projectData.length > 0 && projectData.map((project: any, i: number) => {
                                         return <div className="table-row">
                                             <div className="table-col table-index">{i + 1}</div>
-                                            <div className="table-col table-title" onClick={() => navigate(`/tasks/${project?._id}`)}>{project.projectName}</div>
+                                            <div className="table-col table-title" onClick={() => navigate(`/project/${project?._id}/tasks`)}>{project.projectName}</div>
                                             <div className="col table-col table-date">{project.status}</div>
                                             {/* <div className="col table-col table-date">{project.tags}</div> */}
                                             <div className="col table-col table-date">{project.startDate}</div>
@@ -153,7 +153,7 @@ const projects = () => {
                                             <div className="col table-col table-date">{project.updatedAt}</div>
                                             <div className="col table-col table-date">{project.createdAt}</div>
                                             <div className="col table-action">
-                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/update-project/${project?._id}`) }>Update</button><button className="col btn btn-danger" onClick={() => deleteProject(project._id)}>Delete</button>
+                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/update-project/${project?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteProject(project._id)}>Delete</button>
                                             </div>
                                         </div>
                                     })

@@ -125,7 +125,7 @@ const Tasks = () => {
                     <div className="main-body">
                         <div className="box shadow-sm">
 
-                            <button className='btn btn-black mb-2' onClick={() => navigate("/add-task")}>New Task</button>
+                            <button className='btn btn-black mb-2' onClick={() => navigate(`/project/${id}/add-task`)}>New Task</button>
 
                             <div className=" table-main">
 
@@ -155,7 +155,7 @@ const Tasks = () => {
                                             <div className="col table-col table-date">{task.updatedAt}</div>
                                             <div className="col table-col table-date">{task.createdAt}</div>
                                             <div className="col table-action">
-                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/update-task/${task?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteTask(task._id)}>Delete</button>
+                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/project/${id}/update-task/${task?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteTask(task._id)}>Delete</button>
                                             </div>
                                         </div>
                                     })
