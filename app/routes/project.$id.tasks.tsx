@@ -133,7 +133,7 @@ const Tasks = () => {
                                     <div className="table-col table-index">Sr. No.</div>
                                     <div className="table-col table-title">Task</div>
                                     <div className="col table-col table-date">Status</div>
-                                    {/* <div className="col table-col table-date">Tags</div> */}
+                                    <div className="col table-col table-date">Priority</div>
                                     <div className="col table-col table-date">Start Date</div>
                                     <div className="col table-col table-date">Due Date</div>
                                     <div className="col table-col table-date">End Date</div>
@@ -146,8 +146,9 @@ const Tasks = () => {
                                     tasksData && tasksData.length > 0 && tasksData.map((task: any, i: number) => {
                                         return <div className="table-row">
                                             <div className="table-col table-index">{i + 1}</div>
-                                            <div className="table-col table-title">{task.taskName}</div>
+                                            <div className="table-col table-title" onClick={() => navigate(`/project/${id}/update-task/${task?._id}?viewOnly`)}>{task.taskName}</div>
                                             <div className="col table-col table-date">{task.status}</div>
+                                            <div className="col table-col table-date">{task.priority}</div>
                                             {/* <div className="col table-col table-date">{task.tags}</div> */}
                                             <div className="col table-col table-date">{task.startDate}</div>
                                             <div className="col table-col table-date">{task.dueDate}</div>
