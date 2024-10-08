@@ -146,7 +146,7 @@ const Tasks = () => {
                                     tasksData && tasksData.length > 0 && tasksData.map((task: any, i: number) => {
                                         return <div className="table-row" style={task.status == "Completed" ? { background: "#d4edda" } : task.status == "In Progress" ? { background: "#fff3cd" } : task.status == "On Hold" ? {background: "#f8d7da"} : {}}>
                                             <div className="table-col table-index">{tasksData.length - i}</div>
-                                            <div className="table-col table-title" onClick={() => navigate(`/project/${id}/update-task/${task?._id}?viewOnly`)}>{task.taskName}</div>
+                                            <div className="table-col table-title" onClick={() => navigate(`/project/${id}/view-task/${task?._id}`)}>{task.taskName}</div>
                                             <div className="col table-col table-date">{task.status}</div>
                                             <div className="col table-col table-date">{task.priority}</div>
                                             < div className="col table-col table-date" > {task.startDate}</div>
