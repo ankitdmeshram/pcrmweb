@@ -132,12 +132,16 @@ const dashboard = () => {
                 <Sidebar sidebarOpen={sidebarOpen} />
                 <div className="main-body">
                     <div className="box shadow-sm">
-                        {
-                            isInputDisabled ?
-                                <button className='btn btn-dark px-5' style={{ float: 'right' }} onClick={() => setisInputDisabled(!isInputDisabled)}>Edit</button>
-                                :
-                                <button className='btn btn-dark px-5' style={{ float: 'right' }} onClick={() => { setisInputDisabled(!isInputDisabled); updateUser() }}>Update</button>
-                        }
+                        <div className="row">
+                            <div className="col">
+                                {
+                                    isInputDisabled ?
+                                        <button className='btn btn-dark px-5 editUpdateBtn' style={{ float: 'right' }} onClick={() => setisInputDisabled(!isInputDisabled)}>Edit</button>
+                                        :
+                                        <button className='btn btn-dark px-5 editUpdateBtn' style={{ float: 'right' }} onClick={() => { setisInputDisabled(!isInputDisabled); updateUser() }}>Update</button>
+                                }
+                            </div>
+                        </div>
                         <div className="row mt-4">
                             <div className="col-12 user-profile-header">
                                 <div className="user-img">
