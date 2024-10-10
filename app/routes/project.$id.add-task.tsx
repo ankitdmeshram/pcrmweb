@@ -87,7 +87,14 @@ const addTask = () => {
                         <div className="box shadow-sm">
 
                             <div className="add-project-section">
-                                <h5 className='font-weight-bold'>Add Task</h5>
+                                <div className="row">
+                                    <div className="col-8">
+                                        <h5 className='font-weight-bold'>Add Task</h5>
+                                    </div>
+                                    <div className="col text-end">
+                                        <button className='btn btn-black mb-2' onClick={() => window.history.back()}> <i className="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+                                    </div>
+                                </div>
                                 <div className="row">
                                     <div className="form-group mt-3">
                                         <label htmlFor="taskName">Task Name</label>

@@ -108,7 +108,14 @@ const updateProject = () => {
                         <div className="box shadow-sm">
 
                             <div className="add-project-section">
-                                <h5 className='font-weight-bold'>Update Project</h5>
+                                <div className="row">
+                                    <div className="col-8">
+                                        <h5 className='font-weight-bold'>Update Project</h5>
+                                    </div>
+                                    <div className="col text-end">
+                                        <button className='btn btn-black mb-2' onClick={() => window.history.back()}> <i className="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+                                    </div>
+                                </div>
                                 <div className="row">
                                     <div className="form-group mt-3">
                                         <label htmlFor="projectName">Project Name</label>
