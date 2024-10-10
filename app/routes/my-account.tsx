@@ -143,7 +143,7 @@ const dashboard = () => {
                             </div>
                         </div>
                         <div className="row mt-4">
-                            <div className="col-12 user-profile-header">
+                            <div className="col-12 col-sm-8 user-profile-header">
                                 <div className="user-img">
                                     <img src={profileData?.profilePic ? profileData?.profilePic : "/user.png"} alt="" className="" />
                                     {
