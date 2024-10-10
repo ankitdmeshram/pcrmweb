@@ -125,6 +125,15 @@ const Tasks = () => {
                     <div className="main-body">
                         <div className="box shadow-sm">
 
+                            <div className="row mb-3">
+                                <div className="col">
+                                    <span className='me-4' onClick={() => navigate(`/project/${id}/dashboard`)}>Dashboard</span>
+                                    <span className='me-4' onClick={() => navigate(`/project/${id}/tasks`)}>Tasks</span>
+                                    <span className='me-4' onClick={() => navigate(`/project/${id}/add-task`)}>Add Task</span>
+                                </div>
+                            </div>
+                            <hr />
+
                             <div className="row">
                                 <div className="col">
                                     <button className='btn btn-black mb-2' onClick={() => navigate(`/project/${id}/add-task`)}>New Task</button>
@@ -151,7 +160,7 @@ const Tasks = () => {
 
                                 {
                                     tasksData && tasksData.length > 0 && tasksData.map((task: any, i: number) => {
-                                        return <div className="table-row" style={task.status == "Completed" ? { background: "#d4edda" } : task.status == "In Progress" ? { background: "#fff3cd" } : task.status == "On Hold" ? { background: "#f8d7da" } : {}}>
+                                        return <div className="table-row" style={task.status == "Completed" ? { background: "#d4edda" } : (task.status != "Completed" && moment(task.dueDate).isBefore(moment())) ? { background: "#ff000040" } : task.status == "In Progress" ? { background: "#fff3cd" } : task.status == "On Hold" ? { background: "#f8d7da" } : {}}>
                                             <div className="table-col table-index">{tasksData.length - i}</div>
                                             <div className="table-col table-title" onClick={() => navigate(`/project/${id}/view-task/${task?._id}`)}>{task.taskName}</div>
                                             <div className="col table-col table-date">{task.status}</div>

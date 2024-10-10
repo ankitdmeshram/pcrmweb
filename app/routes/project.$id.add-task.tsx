@@ -86,6 +86,15 @@ const addTask = () => {
                     <div className="main-body">
                         <div className="box shadow-sm">
 
+                            <div className="row mb-3">
+                                <div className="col">
+                                    <span className='me-4' onClick={() => navigate(`/project/${id}/dashboard`)}>Dashboard</span>
+                                    <span className='me-4' onClick={() => navigate(`/project/${id}/tasks`)}>Tasks</span>
+                                    <span className='me-4' onClick={() => navigate(`/project/${id}/add-task`)}>Add Task</span>
+                                </div>
+                            </div>
+                            <hr />
+
                             <div className="add-project-section">
                                 <div className="row">
                                     <div className="col-8">
