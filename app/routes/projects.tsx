@@ -71,9 +71,9 @@ const projects = () => {
         }
     }
 
-    const deleteProject = async (id: any) => {
+    const deleteProject = async (project: any) => {
         try {
-            const confirm = window.confirm("Are you sure you want to delete this project?")
+            const confirm = window.confirm(`Are you sure you want to delete this project ${project.projectName}?`)
             if (!confirm) return
             setIsLoading(true)
 
@@ -84,7 +84,7 @@ const projects = () => {
                     "Content-Type": "application/json",
                     "x-auth-token": `${token}`,
                 },
-                body: JSON.stringify({ _id: id }),
+                body: JSON.stringify({ _id: project._id }),
             })
                 .then((res: any) => {
                     if (res.status === 401) {
@@ -96,7 +96,7 @@ const projects = () => {
                     setModal({ show: true, message: "Project deleted successfully" })
 
                     setProjectData((prev: any) => {
-                        return prev.filter((project: any) => project._id !== id)
+                        return prev.filter((projectId: any) => projectId._id !== project._id)
                     })
 
                     setIsLoading(false)
@@ -153,7 +153,7 @@ const projects = () => {
                                             <div className="col table-col table-date">{project.updatedAt}</div>
                                             <div className="col table-col table-date">{project.createdAt}</div>
                                             <div className="col table-action">
-                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/update-project/${project?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteProject(project._id)}>Delete</button>
+                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/update-project/${project?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteProject(project)}>Delete</button>
                                             </div>
                                         </div>
                                     })

@@ -115,9 +115,9 @@ const Tasks = () => {
         }
     }
 
-    const deleteTask = async (id: any) => {
+    const deleteTask = async (task: any) => {
         try {
-            const confirm = window.confirm("Are you sure you want to delete this task?")
+            const confirm = window.confirm(`Are you sure you want to delete this task ${task.taskName} ?`)
             if (!confirm) return
             setIsLoading(true)
 
@@ -128,7 +128,7 @@ const Tasks = () => {
                     "Content-Type": "application/json",
                     "x-auth-token": `${token}`,
                 },
-                body: JSON.stringify({ _id: id }),
+                body: JSON.stringify({ _id: task._id }),
             })
                 .then((res: any) => {
                     if (res.status === 401) {
@@ -140,7 +140,13 @@ const Tasks = () => {
                     setModal({ show: true, message: "Task deleted successfully" })
 
                     setTasksData((prev: any) => {
-                        return prev.filter((task: any) => task._id !== id)
+                        return prev.filter((taskId: any) => taskId._id != task._id)
+                    })
+                    setFilterData((prev: any) => {
+                        return {
+                            ...prev,
+                            taskData: prev.taskData.filter((taskId: any) => taskId._id != task._id)
+                        }
                     })
 
                     setIsLoading(false)
@@ -248,7 +254,7 @@ const Tasks = () => {
                                             <div className="col table-col table-date">{task.updatedAt}</div>
                                             <div className="col table-col table-date">{task.createdAt}</div>
                                             <div className="col table-action">
-                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/project/${id}/update-task/${task?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteTask(task._id)}>Delete</button>
+                                                <button className="col btn btn-black me-1" onClick={() => navigate(`/project/${id}/update-task/${task?._id}`)}>Update</button><button className="col btn btn-danger" onClick={() => deleteTask(task)}>Delete</button>
                                             </div>
                                         </div>
                                     })
