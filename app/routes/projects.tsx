@@ -11,7 +11,7 @@ import Spinner from "../components/spinner";
 
 import { domainName, getCookie } from '~/utils/common';
 
-import moment from 'moment';
+import moment from "moment-timezone";
 import Modal from '~/components/modal';
 
 const projects = () => {
@@ -58,8 +58,8 @@ const projects = () => {
                             startDate: project.startDate ? moment(project.startDate).format("DD-MM-YYYY") : null,
                             endDate: project.endDate ? moment(project.endDate).format("DD-MM-YYYY") : null,
                             dueDate: project.dueDate ? moment(project.dueDate).format("DD-MM-YYYY") : null,
-                            updatedAt: project.updatedAt ? moment(project.updatedAt).format("DD-MM-YYYY") : null,
-                            createdAt: project.createdAt ? moment(project.createdAt).format("DD-MM-YYYY") : null,
+                            updatedAt: project.updatedAt ? moment(project.updatedAt).tz("Asia/Kolkata").format("DD-MM-YYYY HH:mm") : null,
+                            createdAt: project.createdAt ? moment(project.createdAt).tz("Asia/Kolkata").format("DD-MM-YYYY HH:mm") : null,
                         }
                     })
                 })

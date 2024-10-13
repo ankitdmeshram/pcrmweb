@@ -11,7 +11,7 @@ import Spinner from "../components/spinner";
 
 import { domainName, getCookie } from '~/utils/common';
 
-import moment from 'moment';
+import moment from "moment-timezone";
 import Modal from '~/components/modal';
 
 const Tasks = () => {
@@ -60,8 +60,8 @@ const Tasks = () => {
                             startDate: task.startDate ? moment(task.startDate).format("DD-MM-YYYY") : null,
                             endDate: task.endDate ? moment(task.endDate).format("DD-MM-YYYY") : null,
                             dueDate: task.dueDate ? moment(task.dueDate).format("DD-MM-YYYY") : null,
-                            updatedAt: task.updatedAt ? moment(task.updatedAt).format("DD-MM-YYYY") : null,
-                            createdAt: task.createdAt ? moment(task.createdAt).format("DD-MM-YYYY") : null,
+                            updatedAt: task.updatedAt ? moment(task.updatedAt).tz("Asia/Kolkata").format("DD-MM-YYYY HH:mm") : null,
+                            createdAt: task.createdAt ? moment(task.createdAt).tz("Asia/Kolkata").format("DD-MM-YYYY HH:mm") : null,
                         }
                     })
                 })
