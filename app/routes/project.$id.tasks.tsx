@@ -21,12 +21,37 @@ const Tasks = () => {
     const [tasksData, setTasksData] = useState<any>([])
     const [isLoading, setIsLoading] = useState(true)
     const [modal, setModal] = useState({ show: false, message: "" })
+    const [filterOption, setFilterOption] = useState({
+        status: ["Completed", "In Progress", "On Hold", "Not Started", "Reset"],
+        priority: ["High", "Medium", "Low", "Reset"],
+        dueDate: ["Today", "Tomorrow", "This Week", "This Month", "Overdue", "Reset"],
+    })
+
+    const [filterData, setFilterData] = useState({
+        status: "Reset",
+        priority: "Reset",
+        dueDate: "Reset",
+        taskData: [],
+    })
 
     const navigate = useNavigate()
 
     useEffect(() => {
         fetchTasks(id)
     }, [])
+
+    useEffect(() => {
+        console.log(filterData.dueDate)
+        setFilterData((prev: any) => {
+            return {
+                ...prev,
+                taskData: filterData.status == "Reset" && filterData.priority == "Reset" ? tasksData :
+                    filterData.status == "Reset" && filterData.priority != "Reset" ? tasksData.filter((task: any) => task.priority === filterData.priority) :
+                        filterData.status != "Reset" && filterData.priority == "Reset" ? tasksData.filter((task: any) => task.status === filterData.status) :
+                            tasksData.filter((task: any) => task.status === filterData.status && task.priority === filterData.priority)
+            }
+        })
+    }, [filterData.priority, filterData.status, filterData.dueDate])
 
     const fetchTasks = async (_id: any) => {
         try {
@@ -64,6 +89,23 @@ const Tasks = () => {
                             createdAt: task.createdAt ? moment(task.createdAt).tz("Asia/Kolkata").format("DD-MM-YYYY HH:mm") : null,
                         }
                     })
+                })
+
+                setFilterData((prev: any) => {
+                    return {
+                        ...prev,
+                        taskData: data?.tasks.map((task: any) => {
+                            return {
+                                ...task,
+                                startDate: task.startDate ? moment(task.startDate).format("DD-MM-YYYY") : null,
+                                endDate: task.endDate ? moment(task.endDate).format("DD-MM-YYYY") : null,
+                                dueDate: task.dueDate ? moment(task.dueDate).format("DD-MM-YYYY") : null,
+                                updatedAt: task.updatedAt ? moment(task.updatedAt).tz("Asia/Kolkata").format("DD-MM-YYYY HH:mm") : null,
+                                createdAt: task.createdAt ? moment(task.createdAt).tz("Asia/Kolkata").format("DD-MM-YYYY HH:mm") : null,
+                            }
+                        }
+                        )
+                    }
                 })
             }
             setIsLoading(false)
@@ -148,8 +190,42 @@ const Tasks = () => {
                                 <div className="table-row thead">
                                     <div className="table-col table-index">Sr. No.</div>
                                     <div className="table-col table-title">Task</div>
-                                    <div className="col table-col table-date">Status</div>
-                                    <div className="col table-col table-date">Priority</div>
+                                    <div className="col table-col table-date" data-bs-toggle="dropdown" aria-expanded="false">{filterData?.status == "Reset" ? "Status" : filterData?.status}</div>
+                                    <ul className="dropdown-menu" style={{ width: "177px" }}>
+                                        {filterOption && filterOption.status && filterOption.status.length > 0 &&
+                                            filterOption.status.map((filter, i) => {
+                                                return <>
+                                                    <li onClick={() => setFilterData(prev => {
+                                                        return {
+                                                            ...prev,
+                                                            status: filter
+                                                        }
+                                                    })}><a className="dropdown-item" href="#">{filter}</a></li>
+                                                    {
+                                                        filterData?.status.length != i + 1 && <li><hr className="dropdown-divider" /></li>
+                                                    }
+                                                </>
+                                            })
+                                        }
+                                    </ul>
+                                    <div className="col table-col table-date" data-bs-toggle="dropdown" aria-expanded="false">{filterData?.priority == "Reset" ? "Priority" : filterData?.priority}</div>
+                                    <ul className="dropdown-menu" style={{ width: "177px" }}>
+                                        {filterOption && filterOption.priority && filterOption.priority.length > 0 &&
+                                            filterOption.priority.map((filter, i) => {
+                                                return <>
+                                                    <li onClick={() => setFilterData(prev => {
+                                                        return {
+                                                            ...prev,
+                                                            priority: filter
+                                                        }
+                                                    })}><a className="dropdown-item" href="#">{filter}</a></li>
+                                                    {
+                                                        filterData?.priority.length != i + 1 && <li><hr className="dropdown-divider" /></li>
+                                                    }
+                                                </>
+                                            })
+                                        }
+                                    </ul>
                                     <div className="col table-col table-date">Start Date</div>
                                     <div className="col table-col table-date">Due Date</div>
                                     <div className="col table-col table-date">End Date</div>
@@ -159,7 +235,8 @@ const Tasks = () => {
                                 </div>
 
                                 {
-                                    tasksData && tasksData.length > 0 && tasksData.map((task: any, i: number) => {
+                                    // tasksData && tasksData.length > 0 && tasksData.map((task: any, i: number) => {
+                                    filterData && filterData.taskData && filterData.taskData.length > 0 && filterData.taskData.map((task: any, i: number) => {
                                         return <div className="table-row" style={task.status == "Completed" ? { background: "#d4edda" } : (task.status != "Completed" && moment(task.dueDate).isBefore(moment())) ? { background: "#ff000040" } : task.status == "In Progress" ? { background: "#fff3cd" } : task.status == "On Hold" ? { background: "#f8d7da" } : {}}>
                                             <div className="table-col table-index">{tasksData.length - i}</div>
                                             <div className="table-col table-title" onClick={() => navigate(`/project/${id}/view-task/${task?._id}`)}>{task.taskName}</div>
