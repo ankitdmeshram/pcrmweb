@@ -133,7 +133,7 @@ const Tasks = () => {
                                     <div className="card mb-4">
                                         <div className="card-body pt-5 pb-2 shadow rounded-3">
                                             <h2 className='fw-bolder'>{tasksData.length}</h2>
-                                            <p className='fw-bolder fs-5 pb-3'>Tasks Tasks</p>
+                                            <p className='fw-bolder fs-5 pb-3'>Total Tasks</p>
                                         </div>
                                     </div>
                                 </div>
