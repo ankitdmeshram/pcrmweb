@@ -88,9 +88,9 @@ const addTask = () => {
 
                             <div className="row mb-3">
                                 <div className="col">
-                                    <span className='me-4' onClick={() => navigate(`/project/${id}/dashboard`)}>Dashboard</span>
-                                    <span className='me-4' onClick={() => navigate(`/project/${id}/tasks`)}>Tasks</span>
-                                    <span className='me-4' onClick={() => navigate(`/project/${id}/add-task`)}>Add Task</span>
+                                    <span className='me-4 pointer-cursor' onClick={() => navigate(`/project/${id}/dashboard`)}>Dashboard</span>
+                                    <span className='me-4 pointer-cursor' onClick={() => navigate(`/project/${id}/tasks`)}>Tasks</span>
+                                    <span className='me-4 pointer-cursor' onClick={() => navigate(`/project/${id}/add-task`)}>Add Task</span>
                                 </div>
                             </div>
                             <hr />

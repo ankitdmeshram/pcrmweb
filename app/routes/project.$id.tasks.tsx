@@ -175,9 +175,9 @@ const Tasks = () => {
 
                             <div className="row mb-3">
                                 <div className="col">
-                                    <span className='me-4' onClick={() => navigate(`/project/${id}/dashboard`)}>Dashboard</span>
-                                    <span className='me-4' onClick={() => navigate(`/project/${id}/tasks`)}>Tasks</span>
-                                    <span className='me-4' onClick={() => navigate(`/project/${id}/add-task`)}>Add Task</span>
+                                    <span className='me-4 pointer-cursor' onClick={() => navigate(`/project/${id}/dashboard`)}>Dashboard</span>
+                                    <span className='me-4 pointer-cursor' onClick={() => navigate(`/project/${id}/tasks`)}>Tasks</span>
+                                    <span className='me-4 pointer-cursor' onClick={() => navigate(`/project/${id}/add-task`)}>Add Task</span>
                                 </div>
                             </div>
                             <hr />
@@ -196,8 +196,8 @@ const Tasks = () => {
                                 <div className="table-row thead">
                                     <div className="table-col table-index">Sr. No.</div>
                                     <div className="table-col table-title">Task</div>
-                                    <div className="col table-col table-date" data-bs-toggle="dropdown" aria-expanded="false">{filterData?.status == "Reset" ? "Status" : filterData?.status}</div>
-                                    <ul className="dropdown-menu" style={{ width: "177px" }}>
+                                    <div className="col table-col table-date pointer-cursor" data-bs-toggle="dropdown" aria-expanded="false">{filterData?.status == "Reset" ? "Status" : filterData?.status}</div>
+                                    <ul className="dropdown-menu pointer-cursor" style={{ width: "177px" }}>
                                         {filterOption && filterOption.status && filterOption.status.length > 0 &&
                                             filterOption.status.map((filter, i) => {
                                                 return <>
@@ -206,7 +206,7 @@ const Tasks = () => {
                                                             ...prev,
                                                             status: filter
                                                         }
-                                                    })}><a className="dropdown-item" href="#">{filter}</a></li>
+                                                    })}><a className="dropdown-item pointer-cursor" href="#">{filter}</a></li>
                                                     {
                                                         filterData?.status.length != i + 1 && <li><hr className="dropdown-divider" /></li>
                                                     }
@@ -214,8 +214,8 @@ const Tasks = () => {
                                             })
                                         }
                                     </ul>
-                                    <div className="col table-col table-date" data-bs-toggle="dropdown" aria-expanded="false">{filterData?.priority == "Reset" ? "Priority" : filterData?.priority}</div>
-                                    <ul className="dropdown-menu" style={{ width: "177px" }}>
+                                    <div className="col table-col table-date pointer-cursor" data-bs-toggle="dropdown" aria-expanded="false">{filterData?.priority == "Reset" ? "Priority" : filterData?.priority}</div>
+                                    <ul className="dropdown-menu pointer-cursor" style={{ width: "177px" }}>
                                         {filterOption && filterOption.priority && filterOption.priority.length > 0 &&
                                             filterOption.priority.map((filter, i) => {
                                                 return <>
@@ -224,7 +224,7 @@ const Tasks = () => {
                                                             ...prev,
                                                             priority: filter
                                                         }
-                                                    })}><a className="dropdown-item" href="#">{filter}</a></li>
+                                                    })}><a className="dropdown-item pointer-cursor" href="#">{filter}</a></li>
                                                     {
                                                         filterData?.priority.length != i + 1 && <li><hr className="dropdown-divider" /></li>
                                                     }
@@ -245,7 +245,7 @@ const Tasks = () => {
                                     filterData && filterData.taskData && filterData.taskData.length > 0 && filterData.taskData.map((task: any, i: number) => {
                                         return <div className="table-row" style={task.status == "Completed" ? { background: "#d4edda" } : (task.status != "Completed" && moment(task.dueDate).isBefore(moment())) ? { background: "#ff000040" } : task.status == "In Progress" ? { background: "#fff3cd" } : task.status == "On Hold" ? { background: "#f8d7da" } : {}}>
                                             <div className="table-col table-index">{tasksData.length - i}</div>
-                                            <div className="table-col table-title" onClick={() => navigate(`/project/${id}/view-task/${task?._id}`)}>{task.taskName}</div>
+                                            <div className="table-col table-title pointer-cursor" onClick={() => navigate(`/project/${id}/view-task/${task?._id}`)}>{task.taskName}</div>
                                             <div className="col table-col table-date">{task.status}</div>
                                             <div className="col table-col table-date">{task.priority}</div>
                                             < div className="col table-col table-date" > {task.startDate}</div>

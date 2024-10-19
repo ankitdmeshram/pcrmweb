@@ -144,7 +144,7 @@ const projects = () => {
                                     projectData && projectData.length > 0 && projectData.map((project: any, i: number) => {
                                         return <div className="table-row">
                                             <div className="table-col table-index">{i + 1}</div>
-                                            <div className="table-col table-title" onClick={() => navigate(`/project/${project?._id}/tasks`)}>{project.projectName}</div>
+                                            <div className="table-col table-title pointer-cursor" onClick={() => navigate(`/project/${project?._id}/tasks`)}>{project.projectName}</div>
                                             <div className="col table-col table-date">{project.status}</div>
                                             {/* <div className="col table-col table-date">{project.tags}</div> */}
                                             <div className="col table-col table-date">{project.startDate}</div>
